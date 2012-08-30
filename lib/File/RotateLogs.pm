@@ -65,7 +65,7 @@ sub print {
 
     unless ($fh) {
         my $is_new = ( ! -f $fname || ( $self->linkname && ! -l $self->linkname ) ) ? 1 : 0;
-        open $fh, '>>:unix', $fname or die "Cannot open file($fname): $!";
+        open $fh, '>>:utf8:unix', $fname or die "Cannot open file($fname): $!";
         if ( $is_new ) {
             eval {
                 $self->rotation($fname);
