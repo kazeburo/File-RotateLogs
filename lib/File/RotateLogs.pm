@@ -20,7 +20,7 @@ has 'linkname' => (
     is => 'ro',
     isa => 'Str',
     required => 0,
-)
+);
 
 has 'rotationtime' => (
     is => 'ro',
@@ -64,7 +64,7 @@ sub print {
     }
 
     unless ($fh) {
-        my $is_new = ( ! -f $fname || ! -l $self->filename ) ? 1 : 0;
+        my $is_new = ( ! -f $fname || ( $self->linkname && ! -l $self->linkname ) ) ? 1 : 0;
         open $fh, '>>:unix', $fname or die "Cannot open file($fname): $!";
         if ( $is_new ) {
             eval {
@@ -88,7 +88,7 @@ sub rotation {
     my $lock = $fname .'_lock';
     sysopen(my $lockfh, $lock, O_CREAT|O_EXCL) or return;
     close($lockfh);
-    if ( $sefl->linkname ) {
+    if ( $self->linkname ) {
         my $symlink = $fname .'_symlink';
         symlink($fname, $symlink) or die $!;
         rename($symlink, $self->linkname) or die $!;
@@ -101,19 +101,27 @@ sub rotation {
 
     my $time = time;
     my @to_unlink = grep { $time - [stat($_)]->[9] > $self->maxage } 
-        glob($self->filename . '.*');
+        glob($self->logfile_pattern);
     if ( ! @to_unlink ) {
-        unlink $symlock;
+        unlink $lock;
         return;
     }
 
     if ( $self->sleep_before_remove ) {
-        $self->unlink_background(@to_unlink,$symlock);
+        $self->unlink_background(@to_unlink,$lock);
     }
     else {
         unlink $_ for @to_unlink;
-        unlink $symlock;
+        unlink $lock;
     }
+}
+
+sub logfile_pattern {
+    my $self = shift;
+    my $logfile = $self->logfile;
+    $logfile =~ s!%[%+A-Za-z]!*!g;
+    $logfile =~ s!\*+!*!g;
+    $logfile;
 }
 
 sub unlink_background {

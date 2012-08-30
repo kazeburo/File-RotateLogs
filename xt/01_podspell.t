@@ -9,3 +9,9 @@ __DATA__
 Masahiro Nagano
 kazeburo {at} gmail.com
 File::RotateLogs
+Filename
+filename
+linkname
+maxage
+plack
+rotationtime
