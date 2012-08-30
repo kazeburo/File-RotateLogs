@@ -143,7 +143,7 @@ __END__
 
 =head1 NAME
 
-File::RotateLogs - rotate log file
+File::RotateLogs - File logger supports log rotation
 
 =head1 SYNOPSIS
 
