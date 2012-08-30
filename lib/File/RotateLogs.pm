@@ -204,7 +204,7 @@ Masahiro Nagano E<lt>kazeburo {at} gmail.comE<gt>
 
 =head1 SEE ALSO
 
-L<File::Stamped>
+L<File::Stamped>, L<Log::Dispatch::Dir>
 
 =head1 LICENSE
 
