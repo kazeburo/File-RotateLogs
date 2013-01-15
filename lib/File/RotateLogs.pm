@@ -8,7 +8,7 @@ use Proc::Daemon;
 use File::Spec;
 use Mouse;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 has 'logfile' => (
     is => 'ro',
