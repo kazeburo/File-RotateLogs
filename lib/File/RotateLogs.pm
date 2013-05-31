@@ -7,6 +7,7 @@ use Fcntl qw/:DEFAULT/;
 use Proc::Daemon;
 use File::Spec;
 use Mouse;
+use Time::Local;
 
 our $VERSION = '0.02';
 
@@ -43,7 +44,9 @@ has 'sleep_before_remove' => (
 sub _gen_filename {
     my $self = shift;
     my $now = time;
-    my $time = $now - ($now % $self->rotationtime);
+    my $offset = (24 * 60 * 60) - (timegm(localtime($now)) - $now);
+
+    my $time = $now - (($now - $offset) % $self->rotationtime);
     return POSIX::strftime($self->logfile, localtime($time));
 }
 
