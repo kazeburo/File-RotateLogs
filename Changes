@@ -1,5 +1,7 @@
 Revision history for Perl extension File::RotateLogs
 
+{{$NEXT}}
+
 0.02    Tue Jan 15 17:14:59 2013
         - requires Proc::Daemon >= 0.14, old Proc::Daemon has filehandle issue in some cases
 

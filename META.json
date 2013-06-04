@@ -1,0 +1,73 @@
+{
+   "abstract" : "File logger supports log rotation",
+   "author" : [
+      "Masahiro Nagano <kazeburo {at} gmail.com>"
+   ],
+   "dynamic_config" : 0,
+   "generated_by" : "Minilla/v0.4.6, CPAN::Meta::Converter version 2.130880",
+   "license" : [
+      "perl_5"
+   ],
+   "meta-spec" : {
+      "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+      "version" : "2"
+   },
+   "name" : "File-RotateLogs",
+   "no_index" : {
+      "directory" : [
+         "t",
+         "xt",
+         "inc",
+         "share",
+         "eg",
+         "examples",
+         "author"
+      ]
+   },
+   "prereqs" : {
+      "build" : {
+         "requires" : {
+            "ExtUtils::MakeMaker" : "6.36",
+            "Test::More" : "0"
+         }
+      },
+      "configure" : {
+         "requires" : {
+            "CPAN::Meta" : "0",
+            "CPAN::Meta::Prereqs" : "0",
+            "Module::Build" : "0.38"
+         }
+      },
+      "develop" : {
+         "requires" : {
+            "Test::CPAN::Meta" : "0",
+            "Test::MinimumVersion" : "0.10108",
+            "Test::Pod" : "1.41",
+            "Test::Spellunker" : "v0.2.7"
+         }
+      },
+      "runtime" : {
+         "requires" : {
+            "Mouse" : "1.02",
+            "Proc::Daemon" : "0.14"
+         }
+      }
+   },
+   "release_status" : "unstable",
+   "resources" : {
+      "bugtracker" : {
+         "web" : "https://github.com/kazeburo/File-RotateLogs/issues"
+      },
+      "homepage" : "https://github.com/kazeburo/File-RotateLogs",
+      "repository" : {
+         "type" : "git",
+         "url" : "git://github.com/kazeburo/File-RotateLogs.git",
+         "web" : "https://github.com/kazeburo/File-RotateLogs"
+      }
+   },
+   "version" : "0.02",
+   "x_contributors" : [
+      "SUZUKI Masashi <m15.suzuki.masashi@gmail.com>",
+      "Masahiro Nagano <kazeburo@gmail.com>"
+   ]
+}
