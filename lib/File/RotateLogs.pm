@@ -40,10 +40,17 @@ has 'sleep_before_remove' => (
     default => 3,
 );
 
+has 'offset' => (
+    is => 'ro',
+    isa => 'Int',
+    default => 0,
+);
+
+
 sub _gen_filename {
     my $self = shift;
     my $now = time;
-    my $time = $now - ($now % $self->rotationtime);
+    my $time = $now - (($now + $self->offset) % $self->rotationtime);
     return POSIX::strftime($self->logfile, localtime($time));
 }
 
@@ -196,7 +203,14 @@ Sleep seconds before remove old log files. default: 3
 If sleep_before_remove == 0, files are removed within plack processes. Does not fork background 
 unlink worker.
 
-=back 
+=item offset
+
+The number of seconds offset form UTC. default: 0
+If offset is omitted or set zero, UTC is used.
+When rotationtime is 24h and offset is 0, log is going to be rotated at 0 O'clock (UTC).
+For example, to use local timezone in the zone UTC +9 (Asia/Tokyo), set 32400 (9*60*60).
+
+=back
 
 =head1 AUTHOR
 
