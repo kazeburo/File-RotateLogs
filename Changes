@@ -2,6 +2,11 @@ Revision history for Perl extension File::RotateLogs
 
 {{$NEXT}}
 
+0.04 2013-06-07T01:01:20Z
+
+        - fix test. Some systems don't have Asia/Katmandu timezone?
+          use Australia/Darwin timezone for test.
+
 0.03 2013-06-04T01:09:48Z
 
         - add offset option (thanks masasuzu-san)
