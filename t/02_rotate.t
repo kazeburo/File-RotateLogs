@@ -9,8 +9,8 @@ use Test::MockTime qw/set_fixed_time restore_time/;
 # load at the end
 use File::RotateLogs;
 
-#                   +5:45(extra)  +9:00      0   -4:00
-my @timezones = qw( Asia/Katmandu Asia/Tokyo UTC America/New_York );
+#                   +09:30(extra)  +9:00      0   -4:00
+my @timezones = qw( Australia/Darwin Asia/Tokyo UTC America/New_York );
 
 for my $timezone (@timezones) {
     local $ENV{TZ} = $timezone;
@@ -72,8 +72,8 @@ for my $timezone (@timezones) {
 
         subtest '1h without offset' => sub {
             # for Test::More < 0.97 subtest has prototype
-            if ($timezone eq 'Asia/Katmandu') {
-                test_1h_katmandu_without_offset();
+            if ($timezone eq 'Australia/Darwin') {
+                test_1h_darwin_without_offset();
             }
             else {
                test_1h_without_offset();
@@ -106,7 +106,7 @@ sub test_1h_without_offset {
     restore_time();
 }
 
-sub test_1h_katmandu_without_offset {
+sub test_1h_darwin_without_offset {
     my $tempdir = tempdir(CLEANUP=>1);
     my $rotatelogs = File::RotateLogs->new(
         logfile      => $tempdir.'/test_log.%Y.%m.%d.%H',
@@ -114,16 +114,16 @@ sub test_1h_katmandu_without_offset {
         rotationtime => 60*60,
     );
 
-    set_fixed_time(timelocal(0, 45, 0, 1, 5 -1, 2013));
+    set_fixed_time(timelocal(0, 30, 0, 1, 5 -1, 2013));
     $rotatelogs->print("foo\n");
     ok -f "$tempdir/test_log.2013.05.01.00";
 
-    set_fixed_time(timelocal(0, 44, 1, 1, 5 -1, 2013));
+    set_fixed_time(timelocal(0, 29, 1, 1, 5 -1, 2013));
     $rotatelogs->print("foo\n");
     ok ! -f "$tempdir/test_log.2013.05.01.01", 'not rotate';
     #note join "\n", glob $tempdir.'/test_log*';
 
-    set_fixed_time(timelocal(0, 45, 1, 1, 5 -1, 2013));
+    set_fixed_time(timelocal(0, 30, 1, 1, 5 -1, 2013));
     $rotatelogs->print("foo\n");
     ok -f "$tempdir/test_log.2013.05.01.01", 'rotate new file';
 
