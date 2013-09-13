@@ -4,7 +4,7 @@
       "Masahiro Nagano <kazeburo {at} gmail.com>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Minilla/v0.4.6, CPAN::Meta::Converter version 2.130880",
+   "generated_by" : "Minilla/v0.6.4, CPAN::Meta::Converter version 2.130880",
    "license" : [
       "perl_5"
    ],
@@ -28,7 +28,8 @@
       "build" : {
          "requires" : {
             "Test::MockTime" : "0",
-            "Test::More" : "0"
+            "Test::More" : "0",
+            "Test::Requires" : "0"
          }
       },
       "configure" : {
@@ -65,7 +66,7 @@
          "web" : "https://github.com/kazeburo/File-RotateLogs"
       }
    },
-   "version" : "0.04",
+   "version" : "0.05",
    "x_contributors" : [
       "SUZUKI Masashi <m15.suzuki.masashi@gmail.com>",
       "Masahiro Nagano <kazeburo@gmail.com>"
