@@ -7,19 +7,36 @@ use Fcntl qw/:DEFAULT/;
 use Proc::Daemon;
 use File::Spec;
 use Mouse;
+use Mouse::Util::TypeConstraints;
 
 our $VERSION = '0.04';
 
+subtype 'File::RotateLogs::Path'
+    => as 'Str'
+    => message { "This argument must be Str or Object that has a stringify method" };
+coerce 'File::RotateLogs::Path'
+    => from 'Object' => via {
+        my $logfile = $_;
+        if ( my $stringify = overload::Method( $logfile, '""' ) ) {
+            return $stringify->($logfile);
+        }
+        $logfile;
+    };
+
+no Mouse::Util::TypeConstraints;
+
 has 'logfile' => (
     is => 'ro',
-    isa => 'Str',
+    isa => 'File::RotateLogs::Path',
     required => 1,
+    coerce => 1,
 );
 
 has 'linkname' => (
     is => 'ro',
-    isa => 'Str',
+    isa => 'File::RotateLogs::Path',
     required => 0,
+    coerce => 1,
 );
 
 has 'rotationtime' => (
