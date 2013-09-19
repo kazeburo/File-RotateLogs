@@ -2,6 +2,10 @@ Revision history for Perl extension File::RotateLogs
 
 {{$NEXT}}
 
+0.06 2013-09-19T05:06:30Z
+
+        - fix test. tune timing of start test.
+
 0.05 2013-09-13T02:56:22Z
 
         - logfile and linkname allow to accept Objects that have stringfy method #3

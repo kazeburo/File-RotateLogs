@@ -29,7 +29,8 @@
          "requires" : {
             "Test::MockTime" : "0",
             "Test::More" : "0",
-            "Test::Requires" : "0"
+            "Test::Requires" : "0",
+            "Time::HiRes" : "0"
          }
       },
       "configure" : {
@@ -66,7 +67,7 @@
          "web" : "https://github.com/kazeburo/File-RotateLogs"
       }
    },
-   "version" : "0.05",
+   "version" : "0.06",
    "x_contributors" : [
       "SUZUKI Masashi <m15.suzuki.masashi@gmail.com>",
       "Masahiro Nagano <kazeburo@gmail.com>"
