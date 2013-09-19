@@ -5,4 +5,5 @@ on build => sub {
     requires 'Test::More';
     requires 'Test::MockTime';
     requires 'Test::Requires';
+    requires 'Time::HiRes';
 };

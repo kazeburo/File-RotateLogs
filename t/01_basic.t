@@ -3,6 +3,7 @@ use warnings;
 use File::RotateLogs;
 use File::Temp qw/tempdir/;
 use Test::More;
+use Time::HiRes qw//;
 
 my $tempdir = tempdir(CLEANUP=>1);
 
@@ -15,6 +16,10 @@ my $rotatelogs = File::RotateLogs->new(
 );
 
 ok($rotatelogs);
+
+my $n = Time::HiRes::time();
+$n = $n - int($n);
+select undef, undef, undef, $n;
 
 $rotatelogs->print("foo\n");
 {
