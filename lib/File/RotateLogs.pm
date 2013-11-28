@@ -48,7 +48,10 @@ has 'rotationtime' => (
 has 'maxage' => (
     is => 'ro',
     isa => 'Int',
-    default => 0,
+    default => sub {
+        warn "[INFO] File::RotateLogs: 'maxage' was not configured. RotateLogs doesn't remove any log files\n";
+        return 0;
+    },
 );
 
 has 'sleep_before_remove' => (

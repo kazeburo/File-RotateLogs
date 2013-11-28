@@ -27,20 +27,21 @@ for my $timezone (@timezones) {
                 linkname     => "$tempdir/test_log",
                 rotationtime => 60*60*24,
                 offset       => $offset,
+                maxage       => 0,
             );
 
-            set_fixed_time(timelocal(0, 0, 0, 1, 5 -1, 2013));
+            set_fixed_time(timelocal(0, 0, 1, 1, 5 -1, 2013));
             $rotatelogs->print("foo\n");
-            ok -f "$tempdir/test_log.2013.05.01";
+            ok -f "$tempdir/test_log.2013.05.01", "first file, $timezone";
 
             set_fixed_time(timelocal(0, 59, 23, 1, 5 -1, 2013));
             $rotatelogs->print("foo\n");
-            ok ! -f "$tempdir/test_log.2013.05.02", 'not rotate';
+            ok ! -f "$tempdir/test_log.2013.05.02", "not rotate, $timezone";
             #note join "\n", glob $tempdir.'/test_log*';
 
-            set_fixed_time(timelocal(0, 0, 0, 2, 5 -1, 2013));
+            set_fixed_time(timelocal(0, 0, 1, 2, 5 -1, 2013));
             $rotatelogs->print("foo\n");
-            ok -f "$tempdir/test_log.2013.05.02", 'rotate new file';
+            ok -f "$tempdir/test_log.2013.05.02", "rotate new file, $timezone";
 
             restore_time();
         };
@@ -52,6 +53,7 @@ for my $timezone (@timezones) {
                 linkname     => $tempdir.'/test_log',
                 rotationtime => 60*60,
                 offset       => $offset,
+                maxage       => 0,
             );
 
             set_fixed_time(timelocal(0, 0, 0, 1, 5 -1, 2013));
@@ -88,6 +90,7 @@ sub test_1h_without_offset {
         logfile      => $tempdir.'/test_log.%Y.%m.%d.%H',
         linkname     => $tempdir.'/test_log',
         rotationtime => 60*60,
+        maxage       => 0,
     );
 
     set_fixed_time(timelocal(0, 0, 0, 1, 5 -1, 2013));
@@ -112,6 +115,7 @@ sub test_1h_darwin_without_offset {
         logfile      => $tempdir.'/test_log.%Y.%m.%d.%H',
         linkname     => $tempdir.'/test_log',
         rotationtime => 60*60,
+        maxage       => 0,
     );
 
     set_fixed_time(timelocal(0, 30, 0, 1, 5 -1, 2013));
@@ -141,6 +145,7 @@ subtest 'Asia/Tokyo(+9:00) without offset' => sub {
             logfile      => "$tempdir/test_log.%Y.%m.%d",
             linkname     => "$tempdir/test_log",
             rotationtime => 60*60*24,
+            maxage       => 0,
         );
 
         set_fixed_time(timelocal(0, 0, 0, 1, 5 -1, 2013));
@@ -171,6 +176,7 @@ subtest 'America/Caracas(-4:30) without offset' => sub {
             logfile      => "$tempdir/test_log.%Y.%m.%d",
             linkname     => "$tempdir/test_log",
             rotationtime => 60*60*24,
+            maxage       => 0,
         );
 
         set_fixed_time(timelocal(0, 0, 0, 1, 5 -1, 2013));

@@ -4,7 +4,7 @@
       "Masahiro Nagano <kazeburo {at} gmail.com>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Minilla/v0.6.4, CPAN::Meta::Converter version 2.130880",
+   "generated_by" : "Minilla/v0.8.4, CPAN::Meta::Converter version 2.132830",
    "license" : [
       "perl_5"
    ],
@@ -21,18 +21,11 @@
          "share",
          "eg",
          "examples",
-         "author"
+         "author",
+         "builder"
       ]
    },
    "prereqs" : {
-      "build" : {
-         "requires" : {
-            "Test::MockTime" : "0",
-            "Test::More" : "0",
-            "Test::Requires" : "0",
-            "Time::HiRes" : "0"
-         }
-      },
       "configure" : {
          "requires" : {
             "CPAN::Meta" : "0",
@@ -52,6 +45,15 @@
          "requires" : {
             "Mouse" : "1.02",
             "Proc::Daemon" : "0.14"
+         }
+      },
+      "test" : {
+         "requires" : {
+            "Capture::Tiny" : "0.23",
+            "Test::MockTime" : "0",
+            "Test::More" : "0",
+            "Test::Requires" : "0",
+            "Time::HiRes" : "0"
          }
       }
    },
