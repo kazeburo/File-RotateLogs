@@ -2,6 +2,10 @@ Revision history for Perl extension File::RotateLogs
 
 {{$NEXT}}
 
+0.07 2013-11-28T15:19:01Z
+
+        - add warnings when maxage is not configured
+
 0.06 2013-09-19T05:06:30Z
 
         - fix test. tune timing of start test.
