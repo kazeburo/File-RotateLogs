@@ -1,5 +1,6 @@
 requires 'Mouse', '1.02';
 requires 'Proc::Daemon', '0.14';
+requires 'File::Path', '2.12';
 
 on test => sub {
     requires 'Test::More';

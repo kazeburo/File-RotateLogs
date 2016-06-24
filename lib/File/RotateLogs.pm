@@ -5,6 +5,8 @@ use warnings;
 use POSIX qw//;
 use Fcntl qw/:DEFAULT/;
 use Proc::Daemon;
+use File::Basename;
+use File::Path;
 use File::Spec;
 use Mouse;
 use Mouse::Util::TypeConstraints;
@@ -92,6 +94,7 @@ sub print {
 
     unless ($fh) {
         my $is_new = ( ! -f $fname || ( $self->linkname && ! -l $self->linkname ) ) ? 1 : 0;
+        File::Path::mkpath( File::Basename::dirname($fname) );
         open $fh, '>>:utf8:unix', $fname or die "Cannot open file($fname): $!";
         if ( $is_new ) {
             eval {
