@@ -11,7 +11,7 @@ use File::Spec;
 use Mouse;
 use Mouse::Util::TypeConstraints;
 
-our $VERSION = '0.07';
+our $VERSION = '0.08';
 
 subtype 'File::RotateLogs::Path'
     => as 'Str'

@@ -2,6 +2,10 @@ Revision history for Perl extension File::RotateLogs
 
 {{$NEXT}}
 
+0.08 2016-07-06T08:51:14Z
+
+        - add mkdir feature (Thanks masartz)
+
 0.07 2013-11-28T15:19:01Z
 
         - add warnings when maxage is not configured
