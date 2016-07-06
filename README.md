@@ -7,7 +7,6 @@ File::RotateLogs - File logger supports log rotation
     use File::RotateLogs;
     use Plack::Builder;
     
-
     my $rotatelogs = File::RotateLogs->new(
         logfile => '/path/to/access_log.%Y%m%d%H%M',
         linkname => '/path/to/access_log',
@@ -15,7 +14,6 @@ File::RotateLogs - File logger supports log rotation
         maxage => 86400, #1day
     );
     
-
     builder {
         enable 'AccessLog',
           logger => sub { $rotatelogs->print(@_) };
@@ -31,7 +29,7 @@ Supports logfile rotation and makes symlink to newest logfile.
 
 - logfile
 
-    This is file name pattern. It is the pattern for filename. The format is POSIX::strftime(), see also [POSIX](http://search.cpan.org/perldoc?POSIX).
+    This is file name pattern. It is the pattern for filename. The format is POSIX::strftime(), see also [POSIX](https://metacpan.org/pod/POSIX).
 
 - linkname
 
@@ -66,7 +64,7 @@ Masahiro Nagano <kazeburo {at} gmail.com>
 
 # SEE ALSO
 
-[File::Stamped](http://search.cpan.org/perldoc?File::Stamped), [Log::Dispatch::Dir](http://search.cpan.org/perldoc?Log::Dispatch::Dir)
+[File::Stamped](https://metacpan.org/pod/File::Stamped), [Log::Dispatch::Dir](https://metacpan.org/pod/Log::Dispatch::Dir)
 
 # LICENSE
 
