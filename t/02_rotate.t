@@ -138,7 +138,6 @@ subtest 'Asia/Tokyo(+9:00) without offset' => sub {
     my $tempdir = tempdir(CLEANUP=>1);
     local $ENV{TZ} = 'Asia/Tokyo';
     POSIX::tzset;
-    my $now = time();
 
     subtest '24h' => sub{
         my $rotatelogs = File::RotateLogs->new(
@@ -169,7 +168,6 @@ subtest 'America/Caracas(-4:30) without offset' => sub {
     my $tempdir = tempdir(CLEANUP=>1);
     local $ENV{TZ} = 'America/Caracas';
     POSIX::tzset;
-    my $now = time();
 
     subtest '24h' => sub{
         my $rotatelogs = File::RotateLogs->new(
@@ -191,6 +189,57 @@ subtest 'America/Caracas(-4:30) without offset' => sub {
         set_fixed_time(timelocal(0, 30, 19, 1, 5 -1, 2013));
         $rotatelogs->print("foo\n");
         ok -f "$tempdir/test_log.2013.05.01", 'rotate new file';
+
+        restore_time();
+    };
+};
+
+subtest 'Create new dir' => sub {
+    my $tempdir = tempdir(CLEANUP=>1);
+    local $ENV{TZ} = 'UTC';
+    POSIX::tzset;
+
+    subtest 'rotate by day' => sub{
+        my $rotatelogs = File::RotateLogs->new(
+            logfile      => "$tempdir/%Y/%m/%d/test_log",
+            linkname     => "$tempdir/test_log",
+            rotationtime => 60*60*24,
+            maxage       => 0,
+        );
+
+        set_fixed_time(timelocal(0, 0, 0, 30, 4 -1, 2013));
+        $rotatelogs->print("foo\n");
+        ok -f "$tempdir/2013/04/30/test_log";
+
+        set_fixed_time(timelocal(59, 59, 23, 30, 4 -1, 2013));
+        $rotatelogs->print("foo\n");
+        ok ! -f "$tempdir/2013/05/01/test_log", 'not rotate';
+
+        set_fixed_time(timelocal(0, 0, 0, 1, 5 -1, 2013));
+        $rotatelogs->print("foo\n");
+        ok -f "$tempdir/2013/05/01/test_log", 'rotate new file';
+
+        restore_time();
+    };
+    subtest 'rotate by hour' => sub{
+        my $rotatelogs = File::RotateLogs->new(
+            logfile      => "$tempdir/%Y/%m/%d/%H/test_log",
+            linkname     => "$tempdir/test_log",
+            rotationtime => 60*60,
+            maxage       => 0,
+        );
+
+        set_fixed_time(timelocal(0, 0, 12, 30, 4 -1, 2013));
+        $rotatelogs->print("foo\n");
+        ok -f "$tempdir/2013/04/30/12/test_log";
+
+        set_fixed_time(timelocal(59, 59, 12, 30, 4 -1, 2013));
+        $rotatelogs->print("foo\n");
+        ok ! -f "$tempdir/2013/04/30/13/test_log", 'not rotate';
+
+        set_fixed_time(timelocal(0, 0, 13, 30, 4 -1, 2013));
+        $rotatelogs->print("foo\n");
+        ok -f "$tempdir/2013/04/30/13/test_log", 'rotate new file';
 
         restore_time();
     };
